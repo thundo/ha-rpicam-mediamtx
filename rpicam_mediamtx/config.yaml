@@ -1,5 +1,5 @@
 name: Raspberry Pi Camera (MediaMTX)
-version: "0.1.1"
+version: "0.1.2"
 slug: rpicam_mediamtx
 description: Live stream from the Pi's CSI camera (libcamera + hardware H.264), ready for go2rtc
 url: https://github.com/thundo/ha-rpicam-mediamtx
@@ -8,12 +8,15 @@ arch:
 stage: experimental
 startup: services
 boot: auto
-# libcamera needs /dev/media*, /dev/v4l-subdev*, /dev/video* and /dev/dma_heap,
-# and run.sh must remount /dev/shm: both require a privileged container.
-full_access: true
-apparmor: false
-udev: true
+# `video` covers /dev/video*, /dev/v4l-subdev* (major 81), /dev/media* and vchiq.
+# mtxrpicam also allocates frame buffers from a DMA heap, which `video` does not cover;
+# it tries vidbuf_cached first, then linux,cma. Paths absent on the host are skipped.
 video: true
+devices:
+  - /dev/dma_heap/vidbuf_cached
+  - /dev/dma_heap/linux,cma
+udev: true
+apparmor: false
 ports:
   8554/tcp: null
 ports_description:

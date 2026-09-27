@@ -70,5 +70,6 @@ Home Assistant's built-in go2rtc then serves the stream to the dashboard over We
 |---|---|
 | `dmesg`: `failed to read chip id`, `-EREMOTEIO` | The sensor does not answer on I2C. The ribbon is in the `DISPLAY` connector, or it is in the wrong way round (blue side towards Ethernet/USB on a Pi 4), or the small sensor connector on the camera board has come loose. |
 | No `/dev/video0` and no error in `dmesg` | The overlay was not loaded: check `config.txt` and that it sits under `[all]`. |
-| Add-on stops at once with a `mount` error | `/dev/shm` could not be remounted with `exec`. MediaMTX extracts its camera helper there and cannot start the camera without it. |
+| `mount: /dev/shm: permission denied` | Version 0.1.1 or earlier. Update: 0.1.2 no longer remounts anything. |
+| Log mentions `dma_heap` | The DMA heap device has a name not listed under `devices` in `config.yaml`. Check `ls /dev/dma_heap/` on the host. |
 | Add-on runs but reports no camera | Another process owns the camera, typically `start_x=1` still active on the host. |
