@@ -55,19 +55,34 @@ Home Assistant's built-in go2rtc then serves the stream to the dashboard over We
 
 | Option | Default | Effect |
 |---|---|---|
+| `resolution` | `1920x1080` | Output size. Presets stop at 1920×1080, the most the Pi 4 hardware H.264 encoder takes; anything bigger would be encoded in software on the CPU that runs Home Assistant. On the IMX219, 1920×1080 is a centre crop; `1640x1232` shows the whole sensor at about the same pixel count. |
+| `fps` | `15` | Frames per second, 1–30. |
+| `bitrate` | `5000` | H.264 target bitrate, kbit/s. |
+| `hflip` / `vflip` | `false` | Mirror left–right / flip upside down. Both together rotate by 180°. |
+| `timestamp` | `false` | Date and time on every frame, in Home Assistant's time zone. |
+| `brightness`, `contrast`, `saturation`, `sharpness`, `ev` | unset | Image tuning. Unset keeps MediaMTX's defaults (0, 1, 1, 1, 0). |
+| `awb`, `exposure`, `denoise` | unset | White balance, exposure mode and ISP denoise. Unset means `auto`, `normal`, `off`. |
+| `flicker` | unset | `50hz` / `60hz` removes the rolling bands artificial light causes. |
+| `rtsp_username` / `rtsp_password` | unset | Require credentials to read the stream. Set both, then add them to the Generic Camera too. |
+| `log_level` | `info` | MediaMTX log verbosity. |
 | `moq` | `false` | Also serve the stream over MoQ (Media over QUIC) for browsers using WebTransport. Home Assistant does not use it. Reaching it from the LAN also needs the 8892/8893 ports set under *Network*. |
+
+The unset ones sit under *Show unused optional configuration options*.
+
+A keyframe is sent every 2 seconds whatever the frame rate: a viewer can only start decoding on
+one, so this bounds how long the live view stays black when it opens.
 
 ## Network and security
 
 - Port 8554 is **not** exposed on the host by default. Home Assistant reaches the add-on over the
   internal Supervisor network, so it does not need it.
-- The stream is readable without credentials, and nothing can be published to it. If you set a
-  host port under *Network* (to open the stream in VLC, for example), anyone on your LAN can watch it.
+- Nothing can be published to the stream. Reading it needs no credentials unless
+  `rtsp_username` / `rtsp_password` are set, so set them before giving 8554 a host port under
+  *Network* (to open the stream in VLC, for example): otherwise anyone on your LAN can watch it.
 
 ## Current limits
 
-- One camera, path `cam`, 1920×1080 at 15 fps, fixed in the image.
-- On the IMX219, 1920×1080 is a centre crop of the sensor, not the full field of view.
+- One camera, path `cam`.
 - Live view only: no recording, no motion detection.
 
 ## Troubleshooting

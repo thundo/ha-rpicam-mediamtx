@@ -1,7 +1,71 @@
 configuration:
+  resolution:
+    name: Resolution
+    description: >-
+      1920x1080 is the most the Pi 4 hardware encoder takes, and on the IMX219 it is a
+      centre crop. 1640x1232 shows the full field of view at about the same pixel count.
+  fps:
+    name: Frame rate
+    description: Frames per second (1-30). A keyframe is sent every 2 seconds whatever the rate.
+  bitrate:
+    name: Bitrate (kbit/s)
+    description: H.264 target bitrate. 5000 is plenty for 1080p at 15 fps.
+  hflip:
+    name: Mirror horizontally
+    description: Flip the image left to right.
+  vflip:
+    name: Flip vertically
+    description: Flip the image upside down. Both flips together rotate it by 180°.
+  timestamp:
+    name: Timestamp overlay
+    description: Print date and time on every frame, in Home Assistant's time zone.
+  brightness:
+    name: Brightness
+    description: -1 to 1. Unset means 0.
+  contrast:
+    name: Contrast
+    description: 0 to 16. Unset means 1.
+  saturation:
+    name: Saturation
+    description: 0 (black and white) to 16. Unset means 1.
+  sharpness:
+    name: Sharpness
+    description: 0 to 16. Unset means 1.
+  ev:
+    name: Exposure compensation (EV)
+    description: -10 to 10. Positive brightens a backlit scene. Unset means 0.
+  awb:
+    name: White balance
+    description: Unset means auto.
+  exposure:
+    name: Exposure mode
+    description: long favours low light at the cost of motion blur. Unset means normal.
+  denoise:
+    name: Denoise
+    description: Done by the ISP, not the CPU. Unset means off.
+  flicker:
+    name: Mains flicker
+    description: >-
+      Removes rolling bands under artificial light. 50 Hz in Europe, 60 Hz in North America.
+  rtsp_username:
+    name: RTSP username
+    description: >-
+      Require credentials to read the stream (set both). Then add them to the Generic
+      Camera in Home Assistant too.
+  rtsp_password:
+    name: RTSP password
+    description: See RTSP username.
+  log_level:
+    name: Log level
+    description: MediaMTX log verbosity.
   moq:
     name: MoQ (Media over QUIC)
     description: >-
       Also serve the stream over MoQ, for browsers that read it through WebTransport.
       Home Assistant does not use it. To reach it from the LAN, set the 8892/8893 ports
       in the Network section too.
+network:
+  8554/tcp: RTSP. Home Assistant does not need it; set a port only to reach the stream from the LAN.
+  8892/tcp: MoQ web client (HTTP/2). Used only with the MoQ option on.
+  8892/udp: MoQ WebTransport (HTTP/3). Used only with the MoQ option on.
+  8893/udp: MoQ native QUIC. Used only with the MoQ option on.

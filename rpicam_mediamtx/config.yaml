@@ -1,5 +1,5 @@
 name: Raspberry Pi Camera (MediaMTX)
-version: "0.2.0"
+version: "0.3.0"
 slug: rpicam_mediamtx
 description: Live stream from the Pi's CSI camera (libcamera + hardware H.264), ready for go2rtc
 url: https://github.com/thundo/ha-rpicam-mediamtx
@@ -18,8 +18,37 @@ devices:
 udev: true
 apparmor: false
 options:
+  resolution: "1920x1080"
+  fps: 15
+  bitrate: 5000
+  hflip: false
+  vflip: false
+  timestamp: false
+  log_level: info
   moq: false
+# The `?` ones are image tuning and credentials: unset means MediaMTX's default,
+# and the UI keeps them under "Show unused optional configuration options".
 schema:
+  # Presets only: the Pi 4 hardware H.264 encoder stops at 1920x1080, and anything
+  # above falls back to software encoding on the CPU that runs Home Assistant.
+  resolution: list(640x480|1280x720|1640x1232|1920x1080)
+  fps: int(1,30)
+  bitrate: int(500,20000)
+  hflip: bool
+  vflip: bool
+  timestamp: bool
+  brightness: float(-1,1)?
+  contrast: float(0,16)?
+  saturation: float(0,16)?
+  sharpness: float(0,16)?
+  ev: float(-10,10)?
+  awb: list(auto|incandescent|tungsten|fluorescent|indoor|daylight|cloudy)?
+  exposure: list(normal|short|long)?
+  denoise: list(off|cdn_off|cdn_fast|cdn_hq)?
+  flicker: list(off|50hz|60hz)?
+  rtsp_username: str?
+  rtsp_password: password?
+  log_level: list(error|warn|info|debug)
   moq: bool
 ports:
   8554/tcp: null

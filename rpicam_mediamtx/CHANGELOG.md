@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.3.0
+
+- New options: `resolution` (presets up to 1920×1080), `fps`, `bitrate`, `hflip`, `vflip`,
+  `timestamp`, `log_level`, and optional image tuning (`brightness`, `contrast`, `saturation`,
+  `sharpness`, `ev`, `awb`, `exposure`, `denoise`, `flicker`) and RTSP credentials.
+- Keyframe every 2 seconds (was every 60 frames, i.e. 4 s at 15 fps), so the live view opens faster.
+- Timestamp overlay in Home Assistant's time zone (`tzdata` added to the image).
+- Italian translations of the options.
+
 ## 0.2.0
 
 - New `moq` option (default off) to turn on MediaMTX's MoQ server. Its ports (8892/tcp,

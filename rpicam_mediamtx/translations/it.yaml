@@ -1,0 +1,71 @@
+configuration:
+  resolution:
+    name: Risoluzione
+    description: >-
+      1920x1080 è il massimo che accetta l'encoder hardware del Pi 4, e sull'IMX219 è un
+      ritaglio centrale. 1640x1232 mostra l'inquadratura intera con circa gli stessi pixel.
+  fps:
+    name: Frame rate
+    description: Fotogrammi al secondo (1-30). Un keyframe ogni 2 secondi, qualunque sia il frame rate.
+  bitrate:
+    name: Bitrate (kbit/s)
+    description: Bitrate H.264. 5000 basta e avanza per 1080p a 15 fps.
+  hflip:
+    name: Specchia orizzontalmente
+    description: Inverte l'immagine da sinistra a destra.
+  vflip:
+    name: Capovolgi verticalmente
+    description: Inverte l'immagine dall'alto in basso. Con entrambi attivi l'immagine ruota di 180°.
+  timestamp:
+    name: Data e ora in sovrimpressione
+    description: Stampa data e ora su ogni fotogramma, nel fuso orario di Home Assistant.
+  brightness:
+    name: Luminosità
+    description: Da -1 a 1. Se non impostato vale 0.
+  contrast:
+    name: Contrasto
+    description: Da 0 a 16. Se non impostato vale 1.
+  saturation:
+    name: Saturazione
+    description: Da 0 (bianco e nero) a 16. Se non impostato vale 1.
+  sharpness:
+    name: Nitidezza
+    description: Da 0 a 16. Se non impostato vale 1.
+  ev:
+    name: Compensazione dell'esposizione (EV)
+    description: Da -10 a 10. Un valore positivo schiarisce una scena in controluce. Se non impostato vale 0.
+  awb:
+    name: Bilanciamento del bianco
+    description: Se non impostato è automatico.
+  exposure:
+    name: Modalità di esposizione
+    description: long privilegia la scarsa luce, a costo di mosso. Se non impostato è normal.
+  denoise:
+    name: Riduzione del rumore
+    description: La fa l'ISP, non la CPU. Se non impostato è spenta.
+  flicker:
+    name: Sfarfallio della rete elettrica
+    description: >-
+      Elimina le bande orizzontali sotto luce artificiale. 50 Hz in Europa, 60 Hz in Nord America.
+  rtsp_username:
+    name: Utente RTSP
+    description: >-
+      Richiede le credenziali per leggere lo stream (impostale entrambe). Poi aggiungile
+      anche alla Generic Camera in Home Assistant.
+  rtsp_password:
+    name: Password RTSP
+    description: Vedi Utente RTSP.
+  log_level:
+    name: Livello di log
+    description: Dettaglio dei log di MediaMTX.
+  moq:
+    name: MoQ (Media over QUIC)
+    description: >-
+      Pubblica lo stream anche via MoQ, per i browser che lo leggono tramite WebTransport.
+      Home Assistant non lo usa. Per raggiungerlo dalla LAN imposta anche le porte
+      8892/8893 nella sezione Rete.
+network:
+  8554/tcp: RTSP. A Home Assistant non serve; imposta una porta solo per raggiungere lo stream dalla LAN.
+  8892/tcp: Client web MoQ (HTTP/2). Usata solo con l'opzione MoQ attiva.
+  8892/udp: MoQ WebTransport (HTTP/3). Usata solo con l'opzione MoQ attiva.
+  8893/udp: MoQ QUIC nativo. Usata solo con l'opzione MoQ attiva.

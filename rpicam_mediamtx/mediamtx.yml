@@ -9,7 +9,8 @@ srt: false
 moq: false
 
 # The default config lets anyone publish to any path. Here the only thing
-# anyone can do is read the camera.
+# anyone can do is read the camera. The rtsp_username/rtsp_password options
+# replace this anonymous user with a named one (same permission).
 authInternalUsers:
   - user: any
     pass:
@@ -18,9 +19,8 @@ authInternalUsers:
       - action: read
         path: cam
 
+# Resolution, frame rate, flips, encoding and image tuning come from the add-on
+# options, which run.sh passes as MTX_PATHS_CAM_RPICAMERA* overrides.
 paths:
   cam:
     source: rpiCamera
-    rpiCameraWidth: 1920
-    rpiCameraHeight: 1080
-    rpiCameraFPS: 15

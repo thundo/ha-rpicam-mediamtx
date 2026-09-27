@@ -1,0 +1,13 @@
+name: test
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  run-sh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      # dash is Debian's /bin/sh, the shell run.sh gets in the MediaMTX image.
+      - run: dash tests/test_run.sh

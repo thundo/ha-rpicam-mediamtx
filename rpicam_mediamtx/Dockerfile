@@ -12,9 +12,10 @@ RUN perl -pi -e 's|/dev/shm/mediamtx-rpicamera-|/tmp/shm/mediamtx-rpicamera-|g' 
     && [ "$(grep -c -a '/dev/shm/mediamtx-rpicamera-' /mediamtx)" = 0 ] \
     && mkdir -p /tmp/shm
 
-# jq reads the add-on options in run.sh.
+# jq reads the add-on options in run.sh; tzdata lets the timestamp overlay honour
+# the TZ the Supervisor passes in, instead of printing UTC.
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends jq \
+    && apt-get install -y --no-install-recommends jq tzdata \
     && rm -rf /var/lib/apt/lists/*
 
 COPY mediamtx.yml /etc/mediamtx/mediamtx.yml
