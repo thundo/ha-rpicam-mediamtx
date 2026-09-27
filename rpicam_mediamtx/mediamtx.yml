@@ -5,7 +5,7 @@ rtmp: false
 hls: false
 webrtc: false
 srt: false
-# MoQ is on by default since 1.21 and opens 8892-8893; nothing here uses it.
+# MoQ is on by default since 1.21. Off here; the add-on's `moq` option turns it on (MTX_MOQ).
 moq: false
 
 # The default config lets anyone publish to any path. Here the only thing

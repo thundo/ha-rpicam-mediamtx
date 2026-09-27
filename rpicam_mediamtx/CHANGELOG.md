@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.2.0
+
+- New `moq` option (default off) to turn on MediaMTX's MoQ server. Its ports (8892/tcp,
+  8892/udp, 8893/udp) are declared but not exposed unless set in *Network*.
+- Options are read from `/data/options.json` with jq and passed to MediaMTX as `MTX_*`
+  environment overrides.
+
 ## 0.1.3
 
 - Turn off MoQ, which MediaMTX 1.21 enables by default on ports 8892-8893. RTSP stays the only listener.

@@ -1,5 +1,5 @@
 name: Raspberry Pi Camera (MediaMTX)
-version: "0.1.3"
+version: "0.2.0"
 slug: rpicam_mediamtx
 description: Live stream from the Pi's CSI camera (libcamera + hardware H.264), ready for go2rtc
 url: https://github.com/thundo/ha-rpicam-mediamtx
@@ -17,7 +17,17 @@ devices:
   - /dev/dma_heap/linux,cma
 udev: true
 apparmor: false
+options:
+  moq: false
+schema:
+  moq: bool
 ports:
   8554/tcp: null
+  8892/tcp: null
+  8892/udp: null
+  8893/udp: null
 ports_description:
   8554/tcp: RTSP. Home Assistant does not need it; set a port only to reach the stream from the LAN.
+  8892/tcp: MoQ web client (HTTP/2). Used only with the MoQ option on.
+  8892/udp: MoQ WebTransport (HTTP/3). Used only with the MoQ option on.
+  8893/udp: MoQ native QUIC. Used only with the MoQ option on.

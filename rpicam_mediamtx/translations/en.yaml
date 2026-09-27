@@ -1,0 +1,7 @@
+configuration:
+  moq:
+    name: MoQ (Media over QUIC)
+    description: >-
+      Also serve the stream over MoQ, for browsers that read it through WebTransport.
+      Home Assistant does not use it. To reach it from the LAN, set the 8892/8893 ports
+      in the Network section too.

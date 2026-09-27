@@ -12,6 +12,13 @@ RUN perl -pi -e 's|/dev/shm/mediamtx-rpicamera-|/tmp/shm/mediamtx-rpicamera-|g' 
     && [ "$(grep -c -a '/dev/shm/mediamtx-rpicamera-' /mediamtx)" = 0 ] \
     && mkdir -p /tmp/shm
 
-COPY mediamtx.yml /etc/mediamtx/mediamtx.yml
+# jq reads the add-on options in run.sh.
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends jq \
+    && rm -rf /var/lib/apt/lists/*
 
-ENTRYPOINT ["/mediamtx", "/etc/mediamtx/mediamtx.yml"]
+COPY mediamtx.yml /etc/mediamtx/mediamtx.yml
+COPY run.sh /run.sh
+RUN chmod +x /run.sh
+
+ENTRYPOINT ["/run.sh"]

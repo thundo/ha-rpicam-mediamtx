@@ -51,6 +51,12 @@ MediaMTX opening the camera; the stream path is `cam`.
 
 Home Assistant's built-in go2rtc then serves the stream to the dashboard over WebRTC.
 
+## Options
+
+| Option | Default | Effect |
+|---|---|---|
+| `moq` | `false` | Also serve the stream over MoQ (Media over QUIC) for browsers using WebTransport. Home Assistant does not use it. Reaching it from the LAN also needs the 8892/8893 ports set under *Network*. |
+
 ## Network and security
 
 - Port 8554 is **not** exposed on the host by default. Home Assistant reaches the add-on over the
@@ -60,7 +66,7 @@ Home Assistant's built-in go2rtc then serves the stream to the dashboard over We
 
 ## Current limits
 
-- One camera, path `cam`, 1920×1080 at 15 fps, fixed in the image. There are no add-on options yet.
+- One camera, path `cam`, 1920×1080 at 15 fps, fixed in the image.
 - On the IMX219, 1920×1080 is a centre crop of the sensor, not the full field of view.
 - Live view only: no recording, no motion detection.
 
