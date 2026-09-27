@@ -1,0 +1,24 @@
+# RTSP only: Home Assistant's go2rtc pulls the stream and serves WebRTC itself.
+rtsp: true
+rtspTransports: [tcp]
+rtmp: false
+hls: false
+webrtc: false
+srt: false
+
+# The default config lets anyone publish to any path. Here the only thing
+# anyone can do is read the camera.
+authInternalUsers:
+  - user: any
+    pass:
+    ips: []
+    permissions:
+      - action: read
+        path: cam
+
+paths:
+  cam:
+    source: rpiCamera
+    rpiCameraWidth: 1920
+    rpiCameraHeight: 1080
+    rpiCameraFPS: 15
