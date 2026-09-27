@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.3
+
+- Turn off MoQ, which MediaMTX 1.21 enables by default on ports 8892-8893. RTSP stays the only listener.
+
 ## 0.1.2
 
 - Fix start-up failing with `mount: /dev/shm: permission denied`. MediaMTX's camera helper is now

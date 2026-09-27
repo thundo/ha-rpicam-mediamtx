@@ -5,6 +5,8 @@ rtmp: false
 hls: false
 webrtc: false
 srt: false
+# MoQ is on by default since 1.21 and opens 8892-8893; nothing here uses it.
+moq: false
 
 # The default config lets anyone publish to any path. Here the only thing
 # anyone can do is read the camera.
